@@ -1,0 +1,29 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+.toastDanger {
+  @apply fixed z-50 bottom-0 right-0 m-4 flex max-w-xs items-center rounded-lg bg-red-600 p-4 font-bold text-white shadow w-fit h-fit opacity-100 transition-all duration-100 ease-in-out;
+}
+
+.toastSuccess {
+  @apply fixed z-50 bottom-0 right-0 m-4 flex max-w-xs items-center rounded-lg bg-green-600 p-4 font-bold text-white shadow w-fit h-fit opacity-100 transition-all duration-100 ease-in-out;
+}
+
+.toastWarning {
+  @apply fixed z-50 bottom-0 right-0 m-4 flex max-w-xs items-center rounded-lg bg-yellow-600 p-4 font-bold text-white shadow w-fit h-fit opacity-100 transition-all duration-100 ease-in-out;
+}
+
+.svgIcon {
+  @apply w-8 h-8 sm:w-12 sm:h-12 text-gray-800 dark:text-white;
+}
+
+a {
+  @apply text-sm sm:text-base md:text-lg lg:text-xl font-semibold text-white;
+}
+
+
+@font-face {
+  font-family: 'SourceCodePro';
+  src: url('SourceCodePro.ttf');
+}

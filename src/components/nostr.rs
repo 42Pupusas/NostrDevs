@@ -1,3 +1,4 @@
+use crate::components::keys::{NostrCheckIn, NostrCheckInProps};
 use crate::components::layout::Layout;
 use crate::components::toast::{ToastNotifications, ToastNotificationsProps};
 use crate::pages::event_1::Event1;
@@ -7,7 +8,10 @@ use crate::router::MainPanelRoute;
 use std::{collections::HashMap, sync::Arc};
 
 use async_channel::{unbounded, Sender};
-use nostro2::{notes::SignedNote, relays::{NostrRelay, RelayEvents}};
+use nostro2::{
+    notes::SignedNote,
+    relays::{NostrRelay, RelayEvents},
+};
 use serde_json::Value;
 
 use yew::platform::spawn_local;
@@ -55,8 +59,13 @@ impl Component for NostrComponent {
     type Properties = ();
 
     fn view(&self, _ctx: &Context<Self>) -> Html {
-
-        let full_props = self.build_props();
+        let event_1_props = props!(NostrCheckInProps {
+            send_note: self.send_note_callback.clone(),
+            subscriber: self.filter_callback.clone(),
+            clear_messages: self.clear_messages.clone(),
+            relay_events: self.relay_events.clone(),
+            event_id: "Evento1Test".to_string(),
+        });
 
         let toast_props = props!(ToastNotificationsProps {
             relay_notices: self.relay_notice.clone(),
@@ -67,8 +76,16 @@ impl Component for NostrComponent {
                 <Layout>
                     <Switch<MainPanelRoute> render = { move |switch: MainPanelRoute|{
                         match switch {
-                            MainPanelRoute::Home => html!{ <Home /> },
-                            MainPanelRoute::Event1 => html!{ <Event1 /> },
+                            MainPanelRoute::Home => html!{
+                                <Home />
+                            },
+                            MainPanelRoute::Event1 => html!{
+                                <div class="w-full h-full flex flex-col gap-8 sm:flex-row sm:justify-between">
+                                    
+                                <Event1 />
+                                <NostrCheckIn  ..event_1_props.clone() />
+                                </div>
+                            },
                         }
 
                     }} /> // <- must be child of <BrowserRouter>
@@ -177,9 +194,7 @@ impl NostrComponent {
         (note_tx, filter_tx, subscription_id_tx)
     }
 
-    pub fn build_props(
-        &self,
-    ) -> NostrProps {
+    pub fn _build_props(&self) -> NostrProps {
         props!(NostrProps {
             relay_events: self.relay_events.clone(),
             relay_notice: self.relay_notice.clone(),

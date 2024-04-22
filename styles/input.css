@@ -15,11 +15,11 @@
 }
 
 .svgIcon {
-  @apply w-8 h-8 sm:w-12 sm:h-12 text-gray-800 dark:text-white;
+  @apply w-8 h-8 sm:w-12 sm:h-12 text-white;
 }
 
 a {
-  @apply text-sm sm:text-base md:text-lg lg:text-xl font-semibold text-white;
+  @apply text-sm sm:text-base md:text-lg lg:text-xl font-semibold;
 }
 
 

@@ -1,7 +1,4 @@
 use yew::prelude::*;
-use yew_router::hooks::use_navigator;
-
-use crate::router::MainPanelRoute;
 
 #[derive(Properties, Debug, PartialEq, Clone)]
 pub struct LayoutProps {
@@ -13,7 +10,7 @@ pub struct LayoutProps {
 pub fn layout(props: &LayoutProps) -> Html {
     html! {
         <>
-        <div class="h-lvh w-lvw bg-purple-950 text-white font-source">
+        <div class="h-lvh w-lvw bg-purple-950 text-white font-source overflow-y-auto">
             <div class="px-4 sm:px-8 md:px-16 lg:px-32 xl:px-64">
                 <div class="py-4 md:py-8">
                     <Header />
@@ -30,9 +27,6 @@ const LATEST_LINK: &str = "https://www.eventbrite.co/e/nostr-dev-reunion-el-salv
 
 #[function_component(Header)]
 pub fn header() -> Html {
-    let navigator = use_navigator().unwrap().clone();
-    let onclick_home: Callback<MouseEvent> =
-        Callback::from(move |_| navigator.push(&MainPanelRoute::Home));
     html! {
         <div class="w-full flex flex-row justify-between py-4 my-4 sm:py-8 sm:my-8 border-stone-100 border-b-2  border-dashed">
             <h1 class="text-xl sm:text-2xl md:text-3xl lg:text-4xl font-bold">{"NostrDevs El Salvador"}</h1>

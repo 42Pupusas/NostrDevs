@@ -46,7 +46,7 @@ pub fn toast_notifications(props: &ToastNotificationsProps) -> Html {
                 if *success {
                     html! {<SuccessToast />}
                 } else {
-                    html! {<ErrorToast />}
+                    html! {<ErrorToast message="Failed!" />}
                 }
             } else {
                 html! {}
@@ -64,11 +64,17 @@ pub fn success_toast() -> Html {
     }
 }
 
+
+#[derive(Clone, Properties, PartialEq)]
+pub struct ErrorToastProps {
+    pub message: String
+}
+
 #[function_component(ErrorToast)]
-pub fn error_toast() -> Html {
+pub fn error_toast(props: &ErrorToastProps) -> Html {
     html! {
         <div class="toastDanger">
-            <p>{"Failed!"}</p>
+            <p>{format!("Error: {}", props.message)}</p>
         </div>
     }
 }
